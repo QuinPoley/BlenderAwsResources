@@ -1,0 +1,21 @@
+import bpy
+import bmesh
+
+vertlist = [[(0, 0), (0, 1), (1, 1), (1, 0)],
+            [(2, 2), (2, 3), (3, 3), (3, 2)]]
+
+def create_mesh_object(context, vertlist):
+    bm = bmesh.new()
+
+    for faceverts in vertlist:
+        bm_verts = []
+        for vert in faceverts:
+            bm_verts.append(bm.verts.new((vert[0], vert[1], 0)))
+        bm.faces.new(bm_verts)
+
+    me = bpy.data.meshes.new(name='MyMesh')
+    ob = bpy.data.objects.new(name='MyObject', object_data=me)
+    bm.to_mesh(ob.data)
+    context.collection.objects.link(ob)
+
+create_mesh_object(bpy.context, vertlist)
