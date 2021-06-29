@@ -57,7 +57,7 @@ class DRAWAWSRESOURCE_OT_LAMBDAMAKER(Operator):
     # -----------------------------------------------------
     def execute(self, context):
         if bpy.context.mode == "OBJECT":
-            create_object(self, context)
+            create_lambda(self, context)
             return {'FINISHED'}
         else:
             self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
@@ -134,7 +134,72 @@ def create_object(self, context):
     copy = active.copy()
     scene.collection.objects.link(copy)
     copy.location = cursor
+    
+def create_lambda(self, context):
+    for o in bpy.data.objects:
+        o.select_set(False)
+    verts = []
+    edges = []
+    faces = []
 
+    # TOP FACE
+    verts.append(Vector((-1, 1, 0.5)))
+    verts.append(Vector((-0.4, 1, 0.5)))
+    verts.append(Vector((0.7, -0.7, 0.5)))
+    verts.append(Vector((1, -0.7, 0.5)))
+    verts.append(Vector((1, -1, 0.5)))
+    verts.append(Vector((0.6, -1, 0.5)))
+    verts.append(Vector((-0.5, 0.7, 0.5)))
+    verts.append(Vector((-1, 0.7, 0.5)))
+    
+    # BOTTOM FACE
+    verts.append(Vector((-1, 1, 0)))
+    verts.append(Vector((-0.4, 1, 0)))
+    verts.append(Vector((0.7, -0.7, 0)))
+    verts.append(Vector((1, -0.7, 0)))
+    verts.append(Vector((1, -1, 0)))
+    verts.append(Vector((0.6, -1, 0)))
+    verts.append(Vector((-0.5, 0.7, 0)))
+    verts.append(Vector((-1, 0.7, 0)))
+    
+    # OTHER THING
+    verts.append(Vector((-0.3, 0.2, 0.5)))
+    verts.append(Vector((-0.1, -0.1, 0.5)))
+    verts.append(Vector((-0.7, -1, 0.5)))
+    verts.append(Vector((-1, -1, 0.5)))
+    verts.append(Vector((-0.3, 0.2, 0)))
+    verts.append(Vector((-0.1, -0.1, 0)))
+    verts.append(Vector((-0.7, -1, 0)))
+    verts.append(Vector((-1, -1, 0)))
+
+        
+    faces.append([0, 1, 2, 3, 4, 5, 6, 7])# Top
+    faces.append([8, 9, 10, 11, 12, 13, 14, 15]) # Bottom 
+    faces.append([0, 8, 15, 7])
+    faces.append([0, 8, 9, 1])
+    faces.append([1, 9, 10, 2])
+    faces.append([2, 10, 11, 3])
+    faces.append([3, 11, 12, 4])
+    faces.append([4, 12, 13, 5])
+    faces.append([5, 13, 14, 6])
+    faces.append([6, 14, 15, 7])
+    
+    # OtherThing
+    faces.append([16, 17, 18, 19])
+    faces.append([20, 21, 22, 23])
+    faces.append([16, 20, 21, 17])
+    faces.append([17, 21, 22, 18])
+    faces.append([18, 22, 23, 19])
+    faces.append([19, 23, 20, 16])
+ 
+
+    mesh = bpy.data.meshes.new(name="New Object Mesh")
+    mesh.from_pydata(verts, edges, faces)
+    # useful for development when the mesh may be invalid.
+    # mesh.validate(verbose=True)
+    object_data_add(context, mesh, operator=self)
+    
+    
 def create_ec2(self, context):
     for o in bpy.data.objects:
         o.select_set(False)
