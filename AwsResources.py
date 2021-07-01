@@ -55,11 +55,11 @@ class DRAWAWSRESOURCE_MT_StorageAdd(Menu):
     def draw(self, context):
         self.layout.operator("mesh.simplestorageservice", text="Amazon Simple Storage Service (S3)")
         self.layout.operator("mesh.efs", text="Amazon Elastic File System")
-        self.layout.operator("mesh.simplestorageservice", text="Amazon FSx for Windows File Server")
-        self.layout.operator("mesh.simplestorageservice", text="Amazon FSx for Lustre")
-        self.layout.operator("mesh.simplestorageservice", text="Amazon Elastic Block Store")
-        self.layout.operator("mesh.simplestorageservice", text="AWS Backup")
-        self.layout.operator("mesh.simplestorageservice", text="AWS Storage Gateway")
+        self.layout.operator("mesh.simplestorageservice", text="Amazon FSx for Windows File Server") # ??????
+        self.layout.operator("mesh.simplestorageservice", text="Amazon FSx for Lustre") # ???????
+        self.layout.operator("mesh.ebs", text="Amazon Elastic Block Store")
+        self.layout.operator("mesh.simplestorageservice", text="AWS Backup") #???????
+        self.layout.operator("mesh.storagegateway", text="AWS Storage Gateway")
         self.layout.operator("mesh.simplestorageservice", text="AWS Datasync")
         self.layout.operator("mesh.simplestorageservice", text="AWS Transfer Family")
         self.layout.operator("mesh.simplestorageservice", text="AWS Snow Family")
@@ -284,6 +284,48 @@ class DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM(Operator):
     def execute(self, context):
         if bpy.context.mode == "OBJECT":
             create_efs(self, context)
+            return {'FINISHED'}
+        else:
+            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            return {'CANCELLED'}
+        
+class DRAWAWSRESOURCE_OT_ELASTICBLOCKSTORE(Operator):
+    bl_idname = "mesh.ebs"
+    bl_label = "Elastic Block Store"
+    bl_description = "Draw EBS"
+
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        row.label(text="Use Properties panel (N) to define parms", icon='INFO')
+
+    # -----------------------------------------------------
+    # Execute
+    # -----------------------------------------------------
+    def execute(self, context):
+        if bpy.context.mode == "OBJECT":
+            create_ebs(self, context)
+            return {'FINISHED'}
+        else:
+            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            return {'CANCELLED'}
+        
+class DRAWAWSRESOURCE_OT_STORAGEGATEWAY(Operator):
+    bl_idname = "mesh.storagegateway"
+    bl_label = "AWS Storage Gateway"
+    bl_description = "Draw AWS Storage Gateway"
+
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        row.label(text="Use Properties panel (N) to define parms", icon='INFO')
+
+    # -----------------------------------------------------
+    # Execute
+    # -----------------------------------------------------
+    def execute(self, context):
+        if bpy.context.mode == "OBJECT":
+            create_storagegateway(self, context)
             return {'FINISHED'}
         else:
             self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
@@ -701,6 +743,97 @@ def create_efs(self, context):
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
     object_data_add(context, mesh, operator=self)
+    
+def create_ebs(self, context):
+    for o in bpy.data.objects:
+        o.select_set(False)
+
+    verts = []
+    edges = []
+    faces = []
+
+    verts.append(Vector((1, -1 , -1)))
+    verts.append(Vector((1, -1, 1)))
+    verts.append(Vector((-1, -1, 1)))
+    verts.append(Vector((-1, -1, -1)))
+    verts.append(Vector((1, -0.8 , -1)))
+    verts.append(Vector((1, -0.8, 1)))
+    verts.append(Vector((-1, -0.8, 1)))
+    verts.append(Vector((-1, -0.8, -1)))
+
+    faces.append([0, 1, 2, 3])
+    faces.append([0, 1, 5, 4])
+    faces.append([1, 2, 6, 5])
+    faces.append([2, 3, 7, 6])
+    faces.append([3, 0, 4, 7])
+    faces.append([4, 5, 6, 7])
+    
+    verts.append(Vector((1, -1, 1.3)))
+    verts.append(Vector((-1, -1, 1.3)))
+    verts.append(Vector((-1, 1, 1.3)))
+    verts.append(Vector((1, 1, 1.3)))
+    verts.append(Vector((1, -1 , 1.1)))
+    verts.append(Vector((-1, -1, 1.1)))
+    verts.append(Vector((-1, 1, 1.1)))
+    verts.append(Vector((1, 1, 1.1)))
+    
+    faces.append([8, 9, 10, 11])
+    faces.append([8, 9, 13, 12])
+    faces.append([9, 10, 14, 13])
+    faces.append([10, 11, 15, 14])
+    faces.append([11, 8, 12, 15])
+    faces.append([12, 13, 14, 15])
+
+
+    mesh = bpy.data.meshes.new(name="Ebs Mesh")
+    mesh.from_pydata(verts, edges, faces)
+    # useful for development when the mesh may be invalid.
+    # mesh.validate(verbose=True)
+    object_data_add(context, mesh, operator=self)
+    
+def create_storagegateway(self, context):
+    for o in bpy.data.objects:
+        o.select_set(False)
+    verts = []
+    edges = []
+    faces = []
+    
+    offset = 16
+    closey = [0, 1.3]
+    fary = [1, 2.3]
+    
+    for i in range(2):
+        verts.append(Vector((0, closey[i], 0))) #0
+        verts.append(Vector((0, closey[i], 2))) #1
+        verts.append(Vector((0, fary[i], 0))) #2
+        verts.append(Vector((0, fary[i], 2)))  #3
+        verts.append(Vector((0.2, closey[i], 0)))  #4
+        verts.append(Vector((0.2, closey[i], 1.8)))  #5
+        verts.append(Vector((0.2, fary[i], 0)))  #6
+        verts.append(Vector((0.2, fary[i], 1.8))) # 7
+        
+        verts.append(Vector((1.5, closey[i], 0))) # 8
+        verts.append(Vector((1.5, closey[i], 2))) #9 
+        verts.append(Vector((1.5, fary[i], 0))) #10 
+        verts.append(Vector((1.5, fary[i], 2))) # 11
+        verts.append(Vector((1.3, closey[i], 0))) # 12
+        verts.append(Vector((1.3, closey[i], 1.8))) # 13
+        verts.append(Vector((1.3, fary[i], 0))) # 14
+        verts.append(Vector((1.3, fary[i], 1.8))) # 15
+        
+        faces.append([0+(offset*i), 1+(offset*i), 3+(offset*i), 2+(offset*i)])
+        faces.append([1+(offset*i), 3+(offset*i), 11+(offset*i), 9+(offset*i)])
+        faces.append([5+(offset*i), 7+(offset*i), 15+(offset*i), 13+(offset*i)])
+        faces.append([12+(offset*i), 13+(offset*i), 15+(offset*i), 14+(offset*i)])
+        faces.append([8+(offset*i), 9+(offset*i), 11+(offset*i), 10+(offset*i)])
+        faces.append([0+(offset*i), 1+(offset*i), 9+(offset*i), 8+(offset*i), 12+(offset*i), 13+(offset*i), 5+(offset*i), 4+(offset*i)])
+        faces.append([2+(offset*i), 3+(offset*i), 11+(offset*i), 10+(offset*i), 14+(offset*i), 15+(offset*i), 7+(offset*i), 6+(offset*i)])
+    
+    mesh = bpy.data.meshes.new(name="Storage Gateway Mesh")
+    mesh.from_pydata(verts, edges, faces)
+    # useful for development when the mesh may be invalid.
+    # mesh.validate(verbose=True)
+    object_data_add(context, mesh, operator=self)
 # ----------------------------------------------------------
 # Registration
 # ----------------------------------------------------------
@@ -736,7 +869,9 @@ classes = (
     DRAWAWSRESOURCE_OT_AURORA,
     DRAWAWSRESOURCE_OT_REDSHIFT,
     DRAWAWSRESOURCE_OT_ELASTICACHE,
-    DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM
+    DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM,
+    DRAWAWSRESOURCE_OT_ELASTICBLOCKSTORE,
+    DRAWAWSRESOURCE_OT_STORAGEGATEWAY
 )
 
 def register():
