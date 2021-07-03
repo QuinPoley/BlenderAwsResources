@@ -86,7 +86,7 @@ class DRAWAWSRESOURCE_MT_SecurityAdd(Menu):
     bl_label = "Security"
 
     def draw(self, context):
-        self.layout.operator("mesh.apigateway", text="AWS Identity & Access Management (IAM)")
+        self.layout.operator("mesh.iam", text="AWS Identity & Access Management (IAM)")
         self.layout.operator("mesh.apigateway", text="AWS Single Sign-On")
         self.layout.operator("mesh.apigateway", text="Amazon Cognito")
         self.layout.operator("mesh.apigateway", text="AWS Directory Service")
@@ -326,6 +326,26 @@ class DRAWAWSRESOURCE_OT_STORAGEGATEWAY(Operator):
     def execute(self, context):
         if bpy.context.mode == "OBJECT":
             create_storagegateway(self, context)
+            return {'FINISHED'}
+        else:
+            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            return {'CANCELLED'}
+class DRAWAWSRESOURCE_OT_IAM(Operator):
+    bl_idname = "mesh.iam"
+    bl_label = "AWS IAM"
+    bl_description = "Draw IAM"
+
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        row.label(text="Use Properties panel (N) to define parms", icon='INFO')
+
+    # -----------------------------------------------------
+    # Execute
+    # -----------------------------------------------------
+    def execute(self, context):
+        if bpy.context.mode == "OBJECT":
+            create_iam(self, context)
             return {'FINISHED'}
         else:
             self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
@@ -834,6 +854,162 @@ def create_storagegateway(self, context):
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
     object_data_add(context, mesh, operator=self)
+
+def create_iam(self, context):
+    for o in bpy.data.objects:
+        o.select_set(False)
+    verts = []
+    edges = []
+    faces = []
+    
+
+    verts.append(Vector((1, 1, -1)))     # 0 
+    verts.append(Vector((1, 1, 12.381)))  # 1
+    verts.append(Vector((1, -3, 12.381)))  # 2
+    verts.append(Vector((1, -3, 1)))  # 3
+    verts.append(Vector((1, -1, 1)))  # 4
+    verts.append(Vector((1, -1, -1)))  # 5
+    
+    faces.append([0, 1, 2, 3, 4, 5])
+    
+    verts.append(Vector((-3, 1, 12.381))) # 6
+    verts.append(Vector((1, 1, 8.1846))) # 7
+    verts.append(Vector((1, 1, 6.3895))) # 8
+    verts.append(Vector((1, 1, 4.6966))) # 9
+    verts.append(Vector((1, 1, 2.9245))) # 10
+    verts.append(Vector((1, 1, 1))) # 11
+    verts.append(Vector((-3, 1, 8.1846))) # 12
+    verts.append(Vector((-5.5, 1, 8.1846))) # 13
+    verts.append(Vector((-5.5, 1, 6.3895))) # 14
+    verts.append(Vector((-4, 1, 6.3895))) # 15
+    verts.append(Vector((-4, 1, 4.6966))) # 16
+    verts.append(Vector((-1, 1, 4.6966))) # 17
+    verts.append(Vector((-1, 1, 2.9245))) # 18
+    verts.append(Vector((-4, 1, 2.9245))) # 19
+    verts.append(Vector((-4, 1, 1))) # 20
+    verts.append(Vector((-1, 1, 1))) # 21
+    verts.append(Vector((-1, 1, -1))) # 22
+    
+    faces.append([0, 11, 10, 9, 8, 7, 1, 6, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
+    
+    verts.append(Vector((1, -3, 10.332))) # 23
+    verts.append(Vector((1, -3, 16.477))) # 24
+    verts.append(Vector((1, 1, 16.477))) # 25
+    verts.append(Vector((1, 1, 18.5))) # 26
+    verts.append(Vector((1, -5.5, 18.5))) # 27
+    verts.append(Vector((1, -5.5, 16.477))) # 28
+    verts.append(Vector((1, -7.5, 16.477))) # 29
+    verts.append(Vector((1, -7.5, 12.381))) # 30
+    verts.append(Vector((1, -5.5, 12.381))) # 31
+    verts.append(Vector((1, -5.5, 10.332))) # 32
+    
+    faces.append([23, 24, 25, 26, 27, 28, 29, 30, 31, 32])
+    
+    verts.append(Vector((-3, 1, 10.332))) # 33
+    verts.append(Vector((-3, 1, 16.477))) # 34
+    # REPLACED
+    # REPLACED
+    verts.append(Vector((-5.5, 1, 18.5))) # 35
+    verts.append(Vector((-5.5, 1, 16.477))) # 36
+    verts.append(Vector((-7.5, 1, 16.477))) # 37
+    verts.append(Vector((-7.5, 1, 12.381))) # 38
+    verts.append(Vector((-5.5, 1, 12.381))) # 39
+    verts.append(Vector((-5.5, 1, 10.332))) # 40
+    
+    faces.append([33, 34, 25, 26, 35, 36, 37, 38, 39, 40])
+    
+    verts.append(Vector((-1, 1, 12.381)))  # 41
+    verts.append(Vector((-1, -3, 12.381)))  # 42
+    verts.append(Vector((-1, -3, 1)))  # 43
+    verts.append(Vector((-1, -1, 1)))  # 44
+    verts.append(Vector((-1, -1, -1)))  # 45
+    
+    faces.append([22, 41, 42, 43, 44, 45])
+    faces.append([0, 22, 45, 5])
+    faces.append([5, 4, 44, 45])
+    faces.append([4, 3, 43, 44])
+    faces.append([3, 2, 42, 43])
+    
+    verts.append(Vector((-1, -3, 10.332))) # 46
+    verts.append(Vector((-1, -3, 16.477))) # 47
+    verts.append(Vector((-1, -1, 16.477))) # 48
+    verts.append(Vector((-1, -1, 18.5))) # 49
+    verts.append(Vector((-1, -5.5, 18.5))) # 50
+    verts.append(Vector((-1, -5.5, 16.477))) # 51
+    verts.append(Vector((-1, -7.5, 16.477))) # 52
+    verts.append(Vector((-1, -7.5, 12.381))) # 53
+    verts.append(Vector((-1, -5.5, 12.381))) # 54
+    verts.append(Vector((-1, -5.5, 10.332))) # 55
+    
+    faces.append([46, 47, 48, 49, 50, 51, 52, 53, 54, 55])
+    faces.append([23, 32, 55, 46])
+    
+    verts.append(Vector((-4, -1, 1))) # 56
+    verts.append(Vector((-4, -1, 2.9245))) # 57
+    verts.append(Vector((-1, -1, 2.9245))) # 58
+    verts.append(Vector((-1, -1, 4.6966))) # 59
+    verts.append(Vector((-4, -1, 4.6966))) # 60
+    verts.append(Vector((-4, -1, 6.3895))) # 61
+    verts.append(Vector((-5.5, -1, 6.3895))) # 62
+    verts.append(Vector((-5.5, -1, 8.1846))) # 63
+    verts.append(Vector((-3, -1, 8.1846))) # 64
+    verts.append(Vector((-3, -1, 12.381))) # 65
+    verts.append(Vector((1, -1, 12.381))) # 66
+    verts.append(Vector((-1, 1, 4.6966))) # 67
+    verts.append(Vector((-1, 1, 2.9245))) # 68
+    verts.append(Vector((-4, 1, 2.9245))) # 69
+    verts.append(Vector((-4, 1, 1))) # 70
+    verts.append(Vector((-1, 1, 1))) # 71
+    verts.append(Vector((-1, 1, -1))) # 72
+    verts.append(Vector((-1, -1, 12.381))) # 73
+    
+    faces.append([5, 45, 44, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66])
+    faces.append([6, 1, 2, 42, 73, 65])
+    faces.append([44, 56, 20, 21])
+    faces.append([56, 57, 19, 20])
+    faces.append([57, 58, 18, 19])
+    faces.append([58, 59, 17, 18])
+    faces.append([59, 60, 16, 17])
+    faces.append([60, 61, 15, 16])
+    faces.append([61, 62, 14, 15])
+    faces.append([62, 63, 13, 14])
+    faces.append([63, 64, 12, 13])
+    faces.append([64, 65, 6, 12])
+    
+    verts.append(Vector((-3, -1, 10.332))) # 74
+    verts.append(Vector((-3, -1, 16.477))) # 75
+    # REPLACED 48 
+    # REPLACED 49
+    verts.append(Vector((-5.5, -1, 18.5))) # 76
+    verts.append(Vector((-5.5, -1, 16.477))) # 77
+    verts.append(Vector((-7.5, -1, 16.477))) # 78
+    verts.append(Vector((-7.5, -1, 12.381))) # 79
+    verts.append(Vector((-5.5, -1, 12.381))) # 80
+    verts.append(Vector((-5.5, -1, 10.332))) # 81
+    
+    faces.append([74, 75, 48, 49, 76, 77, 78, 79, 80, 81])
+    faces.append([49, 50, 27, 26, 35, 76]) # TOP
+    faces.append([75, 48, 47, 24, 25, 34])
+    faces.append([74, 75, 34, 33])
+    faces.append([46, 47, 24, 23])
+    
+    faces.append([32, 31, 54, 55])
+    faces.append([31, 30, 53, 54])
+    faces.append([30, 29, 52, 53])
+    faces.append([29, 28, 51, 52])
+    faces.append([28, 27, 50, 51])
+    
+    faces.append([33, 40, 81, 74])
+    faces.append([40, 39, 80, 81])
+    faces.append([39, 38, 79, 80])
+    faces.append([38, 37, 78, 79])
+    faces.append([37, 36, 77, 78])
+    faces.append([36, 35, 76, 77])
+    mesh = bpy.data.meshes.new(name="IAM Mesh")
+    mesh.from_pydata(verts, edges, faces)
+    # useful for development when the mesh may be invalid.
+    # mesh.validate(verbose=True)
+    object_data_add(context, mesh, operator=self)
 # ----------------------------------------------------------
 # Registration
 # ----------------------------------------------------------
@@ -871,7 +1047,8 @@ classes = (
     DRAWAWSRESOURCE_OT_ELASTICACHE,
     DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM,
     DRAWAWSRESOURCE_OT_ELASTICBLOCKSTORE,
-    DRAWAWSRESOURCE_OT_STORAGEGATEWAY
+    DRAWAWSRESOURCE_OT_STORAGEGATEWAY,
+    DRAWAWSRESOURCE_OT_IAM
 )
 
 def register():
