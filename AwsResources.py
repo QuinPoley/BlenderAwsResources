@@ -419,10 +419,13 @@ def create_lambda(self, context):
  
 
     mesh = bpy.data.meshes.new(name="Lambda Mesh")
+    obj = bpy.data.objects.new("Lambda", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
     
 def create_ec2(self, context):
@@ -460,11 +463,14 @@ def create_ec2(self, context):
         faces.append([4+(offset*i), 5+(offset*i), 6+(offset*i), 7+(offset*i)])
 
 
-    mesh = bpy.data.meshes.new(name="Ec2 Mesh")
+    mesh = bpy.data.meshes.new(name="EC2 Mesh")
+    obj = bpy.data.objects.new("EC2", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_dynamo(self, context):
     for o in bpy.data.objects:
@@ -514,11 +520,14 @@ def create_dynamo(self, context):
         faces.append([8+(i*offset), 18+(i*offset), 19+(i*offset), 9+(i*offset)])
         faces.append([9+(i*offset), 19+(i*offset), 10+(i*offset), 0+(i*offset)])
 
-    mesh = bpy.data.meshes.new(name="Dynamo Mesh")
+    mesh = bpy.data.meshes.new(name="DynamoDB Mesh")
+    obj = bpy.data.objects.new("DynamoDB", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_S3(self, context):
     for o in bpy.data.objects:
@@ -575,10 +584,13 @@ def create_S3(self, context):
     faces.append([28, 29, 27, 26]) #top
     
     mesh = bpy.data.meshes.new(name="S3 Mesh")
+    obj = bpy.data.objects.new("S3", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
 
 def create_Aurora(self, context):
     for o in bpy.data.objects:
@@ -626,10 +638,13 @@ def create_Aurora(self, context):
     faces.append([9, 19, 10, 0])
 
     mesh = bpy.data.meshes.new(name="Aurora Mesh")
+    obj = bpy.data.objects.new("Aurora", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_redshift(self, context):
     for o in bpy.data.objects:
@@ -687,10 +702,13 @@ def create_redshift(self, context):
     faces.append([14, 15, 13, 12]) #top
 
     mesh = bpy.data.meshes.new(name="Redshift Mesh")
+    obj = bpy.data.objects.new("Redshift", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_elasticache(self, context):
     for o in bpy.data.objects:
@@ -723,10 +741,13 @@ def create_elasticache(self, context):
     
     
     mesh = bpy.data.meshes.new(name="ElastiCache Mesh")
+    obj = bpy.data.objects.new("ElastiCache", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_efs(self, context):
     for o in bpy.data.objects:
@@ -758,11 +779,15 @@ def create_efs(self, context):
         faces.append([1+(i*offset), 5+(i*offset), 6+(i*offset), 2+(i*offset)])
         faces.append([2+(i*offset), 6+(i*offset), 7+(i*offset), 3+(i*offset)])
         faces.append([3+(i*offset), 7+(i*offset), 4+(i*offset), 0+(i*offset)])
+
     mesh = bpy.data.meshes.new(name="Elastic File System Mesh")
+    obj = bpy.data.objects.new("Elastic File System", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_ebs(self, context):
     for o in bpy.data.objects:
@@ -805,11 +830,14 @@ def create_ebs(self, context):
     faces.append([12, 13, 14, 15])
 
 
-    mesh = bpy.data.meshes.new(name="Ebs Mesh")
+    mesh = bpy.data.meshes.new(name="Elastic Block Store Mesh")
+    obj = bpy.data.objects.new("Elastic Block Store", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
     
 def create_storagegateway(self, context):
     for o in bpy.data.objects:
@@ -850,10 +878,13 @@ def create_storagegateway(self, context):
         faces.append([2+(offset*i), 3+(offset*i), 11+(offset*i), 10+(offset*i), 14+(offset*i), 15+(offset*i), 7+(offset*i), 6+(offset*i)])
     
     mesh = bpy.data.meshes.new(name="Storage Gateway Mesh")
+    obj = bpy.data.objects.new("Storage Gateway", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
 
 def create_iam(self, context):
     for o in bpy.data.objects:
@@ -1005,11 +1036,17 @@ def create_iam(self, context):
     faces.append([38, 37, 78, 79])
     faces.append([37, 36, 77, 78])
     faces.append([36, 35, 76, 77])
+
     mesh = bpy.data.meshes.new(name="IAM Mesh")
+    obj = bpy.data.objects.new("IAM", mesh)
+    obj.location = context.scene.cursor.location
     mesh.from_pydata(verts, edges, faces)
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
-    object_data_add(context, mesh, operator=self)
+
+    mesh.update(calc_edges=True)
+    bpy.context.collection.objects.link(obj)
+    #object_data_add(context, obj, operator=self)
 # ----------------------------------------------------------
 # Registration
 # ----------------------------------------------------------
