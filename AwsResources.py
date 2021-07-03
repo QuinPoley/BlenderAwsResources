@@ -118,7 +118,7 @@ class DRAWAWSRESOURCE_OT_ecmaker(Operator):
             create_ec2(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_LAMBDAMAKER(Operator):
@@ -139,7 +139,7 @@ class DRAWAWSRESOURCE_OT_LAMBDAMAKER(Operator):
             create_lambda(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_DynamoMAKER(Operator):
@@ -160,7 +160,7 @@ class DRAWAWSRESOURCE_OT_DynamoMAKER(Operator):
             create_dynamo(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_APIGATEWAYMAKER(Operator):
@@ -181,7 +181,7 @@ class DRAWAWSRESOURCE_OT_APIGATEWAYMAKER(Operator):
             create_object(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_S3MAKER(Operator):
@@ -202,7 +202,7 @@ class DRAWAWSRESOURCE_OT_S3MAKER(Operator):
             create_S3(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_AURORA(Operator):
@@ -223,7 +223,7 @@ class DRAWAWSRESOURCE_OT_AURORA(Operator):
             create_Aurora(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 class DRAWAWSRESOURCE_OT_REDSHIFT(Operator):
@@ -244,7 +244,7 @@ class DRAWAWSRESOURCE_OT_REDSHIFT(Operator):
             create_redshift(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
         
 class DRAWAWSRESOURCE_OT_ELASTICACHE(Operator):
@@ -265,7 +265,7 @@ class DRAWAWSRESOURCE_OT_ELASTICACHE(Operator):
             create_elasticache(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
         
 class DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM(Operator):
@@ -286,7 +286,7 @@ class DRAWAWSRESOURCE_OT_ELASTICFILESYSTEM(Operator):
             create_efs(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
         
 class DRAWAWSRESOURCE_OT_ELASTICBLOCKSTORE(Operator):
@@ -307,7 +307,7 @@ class DRAWAWSRESOURCE_OT_ELASTICBLOCKSTORE(Operator):
             create_ebs(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
         
 class DRAWAWSRESOURCE_OT_STORAGEGATEWAY(Operator):
@@ -328,7 +328,7 @@ class DRAWAWSRESOURCE_OT_STORAGEGATEWAY(Operator):
             create_storagegateway(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 class DRAWAWSRESOURCE_OT_IAM(Operator):
     bl_idname = "mesh.iam"
@@ -348,7 +348,7 @@ class DRAWAWSRESOURCE_OT_IAM(Operator):
             create_iam(self, context)
             return {'FINISHED'}
         else:
-            self.report({'WARNING'}, "Archimesh: Option only valid in Object mode")
+            self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
 
 def create_object(self, context):
