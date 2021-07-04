@@ -350,15 +350,6 @@ class DRAWAWSRESOURCE_OT_IAM(Operator):
         else:
             self.report({'WARNING'}, "DrawAWSResources: Option only valid in Object mode")
             return {'CANCELLED'}
-
-def create_object(self, context):
-    scene = context.scene
-    cursor = scene.cursor.location
-    active = context.active_object
-    
-    copy = active.copy()
-    scene.collection.objects.link(copy)
-    copy.location = cursor
     
 def create_lambda(self, context):
     for o in bpy.data.objects:
@@ -426,6 +417,19 @@ def create_lambda(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "compute" in bpy.data.materials:
+        index = posicion_material("compute")
+        mat = bpy.data.materials[index]
+        obj.active_material = mat # This part doesnt work
+    else:
+        compute_material = bpy.data.materials.new(name="compute")
+        compute_material.use_nodes = True
+            
+        principled_node = compute_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (255,165,0, 0)
+            
+        obj.active_material = compute_material
     
     
 def create_ec2(self, context):
