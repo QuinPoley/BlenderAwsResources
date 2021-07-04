@@ -419,15 +419,16 @@ def create_lambda(self, context):
     bpy.context.collection.objects.link(obj)
     
     if "compute" in bpy.data.materials:
-        index = posicion_material("compute")
-        mat = bpy.data.materials[index]
-        obj.active_material = mat # This part doesnt work
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "compute":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
     else:
         compute_material = bpy.data.materials.new(name="compute")
         compute_material.use_nodes = True
             
         principled_node = compute_material.node_tree.nodes.get("Principled BSDF")
-        principled_node.inputs[0].default_value = (255,165,0, 0)
+        principled_node.inputs[0].default_value = (1, 0.843, 0, 0)
             
         obj.active_material = compute_material
     
@@ -475,6 +476,20 @@ def create_ec2(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "compute" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "compute":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        compute_material = bpy.data.materials.new(name="compute")
+        compute_material.use_nodes = True
+            
+        principled_node = compute_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (1, 0.843, 0, 0)
+            
+        obj.active_material = compute_material
     
 def create_dynamo(self, context):
     for o in bpy.data.objects:
@@ -532,6 +547,20 @@ def create_dynamo(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "database" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "database":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        database_material = bpy.data.materials.new(name="database")
+        database_material.use_nodes = True
+            
+        principled_node = database_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (0, 0, 1, 0)
+            
+        obj.active_material = database_material
     
 def create_S3(self, context):
     for o in bpy.data.objects:
@@ -595,6 +624,20 @@ def create_S3(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "storage" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "storage":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        storage_material = bpy.data.materials.new(name="storage")
+        storage_material.use_nodes = True
+            
+        principled_node = storage_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (1, 0, 0, 0)
+            
+        obj.active_material = storage_material
 
 def create_Aurora(self, context):
     for o in bpy.data.objects:
@@ -649,6 +692,20 @@ def create_Aurora(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "database" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "database":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        database_material = bpy.data.materials.new(name="database")
+        database_material.use_nodes = True
+            
+        principled_node = database_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (0, 0, 1, 0)
+            
+        obj.active_material = database_material
     
 def create_redshift(self, context):
     for o in bpy.data.objects:
@@ -714,6 +771,21 @@ def create_redshift(self, context):
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
     
+    if "database" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "database":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        database_material = bpy.data.materials.new(name="database")
+        database_material.use_nodes = True
+            
+        principled_node = database_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (0, 0, 1, 0)
+            
+        obj.active_material = database_material
+    
+    
 def create_elasticache(self, context):
     for o in bpy.data.objects:
         o.select_set(False)
@@ -752,6 +824,20 @@ def create_elasticache(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "database" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "database":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        database_material = bpy.data.materials.new(name="database")
+        database_material.use_nodes = True
+            
+        principled_node = database_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (0, 0, 1, 0)
+            
+        obj.active_material = database_material
     
 def create_efs(self, context):
     for o in bpy.data.objects:
@@ -792,6 +878,20 @@ def create_efs(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "storage" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "storage":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        storage_material = bpy.data.materials.new(name="storage")
+        storage_material.use_nodes = True
+            
+        principled_node = storage_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (1, 0, 0, 0)
+            
+        obj.active_material = storage_material
     
 def create_ebs(self, context):
     for o in bpy.data.objects:
@@ -843,6 +943,20 @@ def create_ebs(self, context):
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
     
+    if "storage" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "storage":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        storage_material = bpy.data.materials.new(name="storage")
+        storage_material.use_nodes = True
+            
+        principled_node = storage_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (1, 0, 0, 0)
+            
+        obj.active_material = storage_material
+    
 def create_storagegateway(self, context):
     for o in bpy.data.objects:
         o.select_set(False)
@@ -889,6 +1003,20 @@ def create_storagegateway(self, context):
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "storage" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "storage":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        storage_material = bpy.data.materials.new(name="storage")
+        storage_material.use_nodes = True
+            
+        principled_node = storage_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (1, 0, 0, 0)
+            
+        obj.active_material = storage_material
 
 def create_iam(self, context):
     for o in bpy.data.objects:
@@ -1050,6 +1178,20 @@ def create_iam(self, context):
 
     mesh.update(calc_edges=True)
     bpy.context.collection.objects.link(obj)
+    
+    if "security" in bpy.data.materials:
+        for x in range(len(bpy.data.materials)):
+            if bpy.data.materials[x].name == "security":
+                mat = bpy.data.materials[x]
+                obj.active_material = mat # This part doesnt work
+    else:
+        security_material = bpy.data.materials.new(name="security")
+        security_material.use_nodes = True
+            
+        principled_node = security_material.node_tree.nodes.get("Principled BSDF")
+        principled_node.inputs[0].default_value = (0, 1, 0, 0)
+            
+        obj.active_material = security_material
     #object_data_add(context, obj, operator=self)
 # ----------------------------------------------------------
 # Registration
