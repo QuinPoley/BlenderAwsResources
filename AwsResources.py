@@ -416,7 +416,7 @@ def create_lambda(self, context):
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
-    bpy.context.collection.objects.link(obj)
+    bpy.context.collection['us-east (Ohio)'].objects.link(obj)
     
     if "compute" in bpy.data.materials:
         for x in range(len(bpy.data.materials)):
@@ -475,7 +475,13 @@ def create_ec2(self, context):
     # useful for development when the mesh may be invalid.
     # mesh.validate(verbose=True)
     mesh.update(calc_edges=True)
-    bpy.context.collection.objects.link(obj)
+    
+    collection = bpy.data.collections.get("us-east (Ohio)")
+    if(collection is None):
+        collection = bpy.data.collections.new("us-east (Ohio")
+        bpy.context.collection.children.link(collection)
+        
+    collection.objects.link(obj)
     
     if "compute" in bpy.data.materials:
         for x in range(len(bpy.data.materials)):
